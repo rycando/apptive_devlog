@@ -37,4 +37,4 @@ out/
 .vscode/
 
 ### sensitive properties ###
-properties/application-secret.properties
+src/main/resources/properties/application-secret.properties
