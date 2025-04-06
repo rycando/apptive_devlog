@@ -16,14 +16,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/users")
 public class UserController {
 
-//    private final UserService userService;
+    private final UserService userService;
 
     @PostMapping("")
     public ResponseEntity<CreateUserResponseDto> createUser(@Valid @RequestBody CreateUserRequestDto dto) {
-//        CreateUserDto createUserDto = new CreateUserDto(dto.name, dto.nickname, dto.email, dto.gender, dto.birthday, dto.password);
-//        UserDto userDto = this.userService.createUser(createUserDto);
+        CreateUserDto createUserDto = new CreateUserDto(dto.name, dto.nickname, dto.email, dto.gender, dto.birthday, dto.password);
+        UserDto userDto = this.userService.createUser(createUserDto);
 
-//        return new ResponseEntity<CreateUserResponseDto>(CreateUserResponseDto.buildFromUserDto(userDto), HttpStatus.CREATED);
-        return new ResponseEntity<CreateUserResponseDto>(new CreateUserResponseDto(), HttpStatus.CREATED);
+        return new ResponseEntity<CreateUserResponseDto>(CreateUserResponseDto.buildFromUserDto(userDto), HttpStatus.CREATED);
     }
 }
