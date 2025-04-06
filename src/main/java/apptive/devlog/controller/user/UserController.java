@@ -23,6 +23,6 @@ public class UserController {
         CreateUserDto createUserDto = new CreateUserDto(dto.name, dto.nickname, dto.email, dto.gender, dto.birthday, dto.password);
         UserDto userDto = this.userService.createUser(createUserDto);
 
-        return new ResponseEntity<CreateUserResponseDto>(CreateUserResponseDto.buildFromUserDto(userDto), HttpStatus.CREATED);
+        return new ResponseEntity<>(CreateUserResponseDto.buildFromUserDto(userDto), HttpStatus.CREATED);
     }
 }
