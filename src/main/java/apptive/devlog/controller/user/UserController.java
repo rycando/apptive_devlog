@@ -2,9 +2,9 @@ package apptive.devlog.controller.user;
 
 import apptive.devlog.controller.user.dto.CreateUserRequestDto;
 import apptive.devlog.controller.user.dto.CreateUserResponseDto;
-import apptive.devlog.service.user.UserService;
-import apptive.devlog.service.user.dto.CreateUserDto;
-import apptive.devlog.service.user.dto.UserDto;
+//import apptive.devlog.service.user.UserService;
+//import apptive.devlog.service.user.dto.CreateUserDto;
+//import apptive.devlog.service.user.dto.UserDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
