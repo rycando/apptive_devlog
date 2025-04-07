@@ -12,7 +12,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(HttpException.class)
     public ResponseEntity<ErrorResponse> handleHttpException(HttpServletRequest req, HttpException ex) {
-        log.error(ex.getMessage(), ex);
         return ErrorResponse.toResponseEntity(req, ex.getErrorCode());
     }
 }
