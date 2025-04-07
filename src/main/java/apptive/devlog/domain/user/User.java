@@ -1,25 +1,29 @@
 package apptive.devlog.domain.user;
 
+import apptive.devlog.domain.user.role.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 @Entity
-@Table
+@Table(name = "User")
 @Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class User implements UserDetails {
     @Id
     @NotNull
     @NotEmpty
@@ -54,4 +58,46 @@ public class User {
     @NotNull
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private Date birthday;
+
+    @Transient
+    private Collection<SimpleGrantedAuthority> authorities;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "UserRole",
+            joinColumns = { @JoinColumn(name = "userId", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "roleId", referencedColumnName = "id")}
+    )
+    private List<Role> roles;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.authorities;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    // UserDetails에서 userName은 ID를 의미함
+    @Override
+    public String getUsername() {
+        return this.email;
+    }
 }
